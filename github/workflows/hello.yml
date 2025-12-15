@@ -1,0 +1,28 @@
+name: Hello Workflow
+
+on: [push]
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print greeting
+        run: echo "Hello from GitHub Actions!"
+
+      - name: Print Python version
+        run: python --version
+
+      - name: Print date
+        run: date
+
+      - name: Print working directory
+        run: pwd
+
+      - name: List files
+        run: ls -la
+
+      - name: Show environment
+        run: |
+          echo "Runner OS: $RUNNER_OS"
+          echo "GitHub Actor: $GITHUB_ACTOR"
+          echo "Repository: $GITHUB_REPOSITORY"
