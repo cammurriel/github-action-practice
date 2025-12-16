@@ -1,6 +1,12 @@
 name: Matrix Testing
 
-on: [push]
+on:
+  push:
+    paths-ignore:
+      - '.github/workflows/hello.yml'
+      - '.github/workflows/test.yml'
+      - '.github/workflows/pipeline.yml'
+
 
 jobs:
   test:
