@@ -1,13 +1,7 @@
 name: With Caching
 
 
-on:
-  push:
-    paths-ignore:
-      - '.github/workflows/hello.yml'
-      - '.github/workflows/test.yml'
-      - '.github/workflows/pipeline.yml'
-      - '.github/workflows/matrix.yml'
+on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
