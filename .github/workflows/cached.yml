@@ -1,18 +1,19 @@
 name: With Caching
 
-
 on: [push]
+
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set Up Python
-        uses:  actions/checkout@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip' # this line enables caching
+          cache: 'pip'  # This line enables caching!
 
       - name: Install dependencies
         run: |
