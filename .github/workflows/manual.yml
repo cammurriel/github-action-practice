@@ -1,0 +1,51 @@
+name: Manual Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+
+      python-version:
+        description: 'Python version'
+        required: true
+        type: choice
+        options:
+          - '3.9'
+          - '3.11'
+          - '3.12'
+        default: '3.11'
+
+      run-tests:
+        description: 'Run tests before deployment?'
+        type: boolean
+        default: true
+
+jobs:
+  test:
+    if: ${{ inputs.run-tests }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+      - run: pytest -v
+
+  deploy:
+    needs: test
+    if: always() && (needs.test.result == 'success' || needs.test.result == 'skipped')
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Deploying to: ${{ inputs.environment }}"
+          echo "Python version: ${{ inputs.python-version }}"
+          echo "Tests run: ${{ inputs.run-tests }}"
