@@ -22,6 +22,20 @@ on:
           - '3.12'
         default: '3.11'
 
+      test-tags:
+        description: 'Which test tags did you want to run'
+        type: choice
+        options:
+          - usTests
+          - euTests
+          - jpTests
+        default: usTests
+
+      dev-name:
+        description: 'Which dev is triggering this run?'
+        type: string
+        default: 'cam'
+
       run-tests:
         description: 'Run tests before deployment?'
         type: boolean
