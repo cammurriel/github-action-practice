@@ -1,0 +1,48 @@
+name: Conditional Execution
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+      - run: pytest -v
+
+  deploy-staging:
+    name: Deploy to Staging
+    needs: test
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Deploying to STAGING"
+          echo "Branch: ${{ github.ref_name }}"
+
+  deploy-production:
+    name: Deploy to Production
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Deploying to PRODUCTION"
+          echo "Commit: ${{ github.sha }}"
+
+  pr-checks:
+    name: PR Checks
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "PR #${{ github.event.pull_request.number }}"
+          echo "By: ${{ github.event.pull_request.user.login }}"
