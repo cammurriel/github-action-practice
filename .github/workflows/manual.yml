@@ -64,4 +64,4 @@ jobs:
           echo "Python version: ${{ inputs.python-version }}"
           echo "Tests run: ${{ inputs.run-tests }}"
           echo "Test Tags: ${{ inputs.test-tags }}"
-          echo " Dev who triggered Run: ${{ inputs.dev-name} }"
+          echo "Dev who triggered Run: ${{ inputs.dev-name}}"
