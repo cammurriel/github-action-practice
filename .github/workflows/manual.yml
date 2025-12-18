@@ -63,5 +63,5 @@ jobs:
           echo "Deploying to: ${{ inputs.environment }}"
           echo "Python version: ${{ inputs.python-version }}"
           echo "Tests run: ${{ inputs.run-tests }}"
-          echo "Test Tags: ${{}inputs.test-tags}}"
-          echo " Dev who triggered Run: ${{inputs.dev-name}}"
+          echo "Test Tags: ${{ inputs.test-tags }}"
+          echo " Dev who triggered Run: ${{ inputs.dev-name} }"
