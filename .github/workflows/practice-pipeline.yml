@@ -1,4 +1,4 @@
-Name: Practice Pipeline
+name: Practice Pipeline
 
 on: [push]
 
