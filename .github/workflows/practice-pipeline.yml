@@ -1,0 +1,42 @@
+Name: Practice Pipeline
+
+on: [push]
+
+jobs:
+    check:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+
+        - name: Set up Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: '3.11'
+            cache: pip
+
+        - name: install dependencies
+          run: |
+            'pip install flake8'
+            'pip install flake8 src tests'
+
+    test:
+      needs: check
+      runs-on: ubuntu-latest
+      steps:
+        - run: pytest -v
+
+    report:
+      needs: test
+      if: always()
+      runs-on: ubuntu-latest
+      steps:
+        - run: echo "pipeline complete!"
+
+
+
+
+
+
+
+
+
