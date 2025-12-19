@@ -15,7 +15,7 @@ jobs:
         - name: install flake
           run: |
              pip install flake8
-             pip install flake8 src tests
+             flake8 src tests
 
     test:
       needs: check
