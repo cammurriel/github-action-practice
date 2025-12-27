@@ -1,0 +1,19 @@
+name: Docker Practice
+
+on: workflow_dispatch
+jobs:
+  build:
+    name: checkout latest
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v4
+        - name: Set up docker build
+          uses: docker/setup-buildx-action@v3
+
+        - name: Build docker image
+          uses: docker/build-push-action@v5
+          with:
+            context: .
+            push: false
+            tags: calculator:test
+
